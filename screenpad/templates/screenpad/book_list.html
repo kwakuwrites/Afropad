@@ -1,0 +1,18 @@
+{% extends "screenpad/base.html" %}
+
+{% block content %}
+
+<h1>Your Books</h1>
+
+<ol>
+{% for book in books %}
+    <div class="book-list">
+        <li><a href="{% url 'screenpad:book_entries' book_slug=book.slug %}">{{ book.title }} by {{ book.author }}</a></li>
+    </div>
+   
+{% endfor %}
+</ol>
+
+<h2><a href="{% url 'screenpad:create_another_book' %}">Create Another Book</a></h2>
+    
+{% endblock %}

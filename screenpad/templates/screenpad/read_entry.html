@@ -1,0 +1,39 @@
+{% extends "screenpad/base.html" %}
+
+{% block content %}
+<div class="read-content">          
+    <h1>{{ book.title }}</h1>
+    <h2>by {{ book.author }}</h2>
+    <h3>{{ entry.title }}</h3>
+    {% include 'screenpad/engagement_bar.html' with entry=entry book_slug=book.slug footprints=entry.footprints likes_count=likes_count reader_view=True %}
+    <p>{{ entry.content| linebreaks }}</p>
+    <section class="comments-section">
+        <h3>Comments</h3>
+        {% for comment in comments %}
+            <div class="comment-bubble">
+                <div class="comment-header"> 
+                    <span class="comment-user">{{comment.user.username}}</span>
+                    <span class="comment-time">
+                        {{ comment.created_at| timesince}} ago
+                    </span>
+                </div>
+                <div class="comment-body">
+                    <p>{{ comment.content| linebreaksbr }}</p>
+                </div>
+                
+            </div>
+        {% endfor %}
+
+        {% if user.is_authenticated %}
+        <form method="post" class="comment-form">
+            {% csrf_token %}
+            {{form.content}}
+            <button type="submit">Post</button>
+        </form>
+        {% else %}
+            <p><a href="{% url 'login' %}"></a></p>
+        {% endif %}
+        
+    </section>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'screenpad/base.html' %}
+<h1> EDIT ENTRY PAGE</h>
+
+{% block content %}
+<h1>EDIT</h1>
+
+<p><a href="{% url 'screenpad:book_detail' book_slug=entry.book.slug %}">{{ entry.book.title }}</a></p>
+<h1>Edit Entry</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Changes</button>
+</form>
+
+{% endblock %}

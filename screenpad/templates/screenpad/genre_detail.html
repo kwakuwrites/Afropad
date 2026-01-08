@@ -1,0 +1,55 @@
+{% extends 'screenpad/base.html' %}
+
+{% block content %}
+
+
+
+
+<h1>{{ genre.name }}</h1>
+
+{% if books %}
+    <ol>
+        <div class="genre-list">
+            {% for book in books %}
+                <div class="num">
+                        <span class="stat-num">{{ forloop.counter }}</span>
+                    <div class="book-row">
+                    
+                        <div class="book-cover">
+                            {% if book.cover_image %}
+                                <img src="{{ book.cover_image.url }}"/>
+                            {% else %}
+                                <img src="media/book_covers/default_cover.png"/>
+                    
+                            {% endif %}
+                        </div>
+                        <div class="book-info" >
+                            <a href="{% url 'screenpad:book_detail' book_slug=book.slug %}"><h2>{{ book.title }}</h2> 
+                                <p>{{ book.author }}</p>
+                                <p>{{book.book_description}}</p>
+                            </a>
+                        </div>
+                        <div class="book-stats">
+                            <span class="stat-item">
+                                <span class="heart">&#10084;</span>
+                                <span class="count">{{ book.total_likes }}</span>
+                            </span>
+                            <span class="stat-item">
+                                <span class="footprints">&#128099;</span>
+                                <span class="count">{{ book.total_footprints }}</span>
+                            </span>
+                            <span class="stat-item">
+                                <span class="comment">&#128172;</span>
+                                <span class="count">{{ book.total_comments }}</span>
+                            </span>
+
+                        </div>
+                    </div>            
+                </div>
+            {% endfor %}
+        </div>
+    </ol>    
+{% else %}
+    <p>No books available in this genre.</p>
+{% endif %}
+{% endblock %}

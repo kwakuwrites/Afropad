@@ -1,0 +1,16 @@
+<div class="detail-book">
+
+    <h1>{{ book.title }}</h1>
+    <p>Author: {{ book.author }}</p>
+    {% if entries %}
+        <ol>
+        
+            {% for entry in entries %}
+                <li><a href="{% url 'screenpad:read_entry' book_slug=book.slug order=entry.order %}">CHAPTER{{ entry.order }}</a></li>
+        
+            {% endfor %}
+        </ol>
+    {% else %}
+        <p>No entries available for this book.</p>
+    {% endif %}
+</div>

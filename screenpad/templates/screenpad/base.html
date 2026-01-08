@@ -1,0 +1,24 @@
+{% load static %}
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.o">
+        <meta charset="utf-8">
+        <title>Afropad</title>
+        <link rel = "stylesheet" href="{% static 'css/style.css' %}"/>
+        <link href="https://fonts.googleapis.com/css2?family=Pacifico:wght@400;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    </head>
+
+<body>
+    <header>
+        <div class="header"><p><a href="{% url 'screenpad:index' %}">Home</a></p></div>
+    </header>
+    {% block content %}{% endblock %}
+
+</body>
+</html> 
+
+
+
+

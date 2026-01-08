@@ -1,0 +1,32 @@
+{% extends "screenpad/base.html" %}
+
+{% block content %}
+
+<div class="add-entry">
+    <p><a href="{% url 'screenpad:new_entry' selected_book.slug %}"><strong>Add an entry</strong></a></p>
+</div>
+
+
+
+{% if selected_book %} 
+<div class="full-detail">
+{% for entry in selected_book.entries.all %}
+    <div class="detail">
+        <h1>{{ entry.title }}</h1>
+        <p>{{ entry.content|truncatewords:40 }}</p>
+        <p>{{ entry.created_at|date:"F j, Y" }}</p>
+        {% include 'screenpad/engagement_bar.html' with entry=entry book_slug=book.slug footprints=entry.footprints likes_count=likes_count reader_view=True %}
+        <p><a href="{% url 'screenpad:edit_entry' entry.pk %}">Edit Entry</a></p>
+    </div>
+{% endfor %}
+</div>
+{% else %}
+    <h1>No Entries available</h1>
+{% endif %}
+
+{% endblock %}
+
+
+
+
+

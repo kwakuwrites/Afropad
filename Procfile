@@ -1,0 +1,1 @@
+web: gunicorn afropad.wsgi --log-file -

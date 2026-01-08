@@ -1,0 +1,14 @@
+{% extends "screenpad/base.html" %}
+
+{% block content %}
+
+ <h2>Add entry to {{ selected_book.title }}</h2>
+ <div class="entry-container">
+ <form method="post">
+    {% csrf_token %}
+    {{ entry_form.as_p }}
+    <button type="submit">Add Entry</button>
+ </form>
+ </div>
+
+{% endblock %}

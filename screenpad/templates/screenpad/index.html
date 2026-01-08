@@ -1,0 +1,76 @@
+{% extends 'screenpad/base.html' %}
+{% block content %}
+ 
+<div class="user">
+    {% if user.is_authenticated %}
+        <h1>Hello, {{ user.username }}! Welcome to Afropad</h1>
+    {% else %}
+        <a href="{% url 'users:register' %}">Register for Afropad</a> 
+        <a href="{% url 'users:login' %}">Log in to Afropad</a>
+    {% endif %}
+</div>
+ 
+<section class="wisdom_grid">
+    <img src="static/images/duafe.png">
+    
+    <div class="quotes">
+        <div class="quotecard">
+            <p>When an old person dies, a library burns</p>
+            <span>-African proverb</span>
+        </div>
+
+        <div class="quotecard">
+            <p>Until the lion have their own historians, the history of their hunt will always glorify their hunter</p>
+            <span>-Chinua Achebe</span>
+        </div>
+
+        <div class="quotecard">
+            <p>WIsdom is like a boabab tree no one person can embrace it</p>
+            <span>-African proverb</span>
+        </div>
+    </div>
+</section>
+
+<div class="text1">
+    <h2><strong>Discover African stories written by African authors</h2></strong>
+    <p>Welcome to Afropad, your gateway to a rich collection of African literature. Explore stories that celebrate the diverse cultures, histories, and experiences of the African continent, all penned by talented African authors.</p>
+   
+</div>
+
+<p>Browse the Genres</p>
+
+<div class="genres-container">
+{% for genre in genres %}
+    <ul>
+    <a href="{% url 'screenpad:genre_detail' genre.id %}"
+    class="genre-link">{{ genre.name }}</a>
+    </ul>
+{% endfor %}
+</div>
+
+
+
+<div class="item17">
+    <div class="item16">
+        <h3>Your story deserves to be read</h3>
+        <p>We are commited to preserving African culture and empowering African writers to share their voice. Join our community, start reading and start publishing your book</p>
+        <p>I have a dream. A dream where African creativity knows no limit. A dream where every writer can share their vision with the world</p>
+        <p>A dream where stories, ideas, and talent come alive, celebrated and recognized. Step in, show yoor Afro power. And let the world see the power of african creativity.</p>
+    </div> 
+    <div class="item18">
+        <img src="static/images/liz.jpg"/>
+    </div>
+</div>
+
+<div class="end">
+    <a href="{% url 'screenpad:create_a_book' %}" class="create_a_book">Create a Book</a>
+
+    {% if user.is_authenticated %}
+        <form method="post" action="{% url 'users:logout'%}" style='display: inline;'>
+            {% csrf_token %}
+            <button type="submit" class="sm">Log out</button>
+        </form>
+    {% endif %}
+</div>
+
+{% endblock %}

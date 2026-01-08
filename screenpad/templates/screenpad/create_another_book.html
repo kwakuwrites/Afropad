@@ -1,0 +1,14 @@
+{% extends "screenpad/base.html" %}
+
+{% block content %}
+
+
+<h1>Create Another Book</h1>
+<div class="book-form-container">
+<form action="{% url 'screenpad:create_another_book' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{book_form.as_p }}
+    <button type="submit" class="cbutton">Create book</button>
+</form>
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+<p>
+   <span>&#128099</span> {{footprints}} &nbsp; &nbsp;
+   {% if user.is_authenticated and reader_view %}
+        <span class = "like-button" data-url="{% url 'screenpad:toggle_like' book_slug=entry.book.slug order=entry.order %}" style="cursor:pointer">
+        <span>&#10084</span> {{entry.likes.count}}
+        </span>
+    {% endif %}    
+    <span class="likes_count">{{likes_count}}</span>
+    
+    
+    
+</p>
+
+{% csrf_token %}
+<script>
+    const csrftoken=document.querySelector('[name=csrfmiddlewaretoken]').value;
+</script>
+<script>
+    console.log("JS LOADED");
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log("DOM READY");
+        const likeButton = document.querySelector(".like-button");
+        const url = likeButton.dataset.url;
+        
+    
+
+        if (!likeButton) {
+            return;
+        }
+
+        
+
+        likeButton.addEventListener('click', function() {
+            console.log("&#10084 CLICKED")
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({})
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                const likeCountSpan = this.querySelector('.like-count');
+                if (likeCountSpan) {
+                    likeCountSpan.textContent = data.likes_count;
+                }
+                
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+</script>
